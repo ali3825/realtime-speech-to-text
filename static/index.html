@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolo – Speech to Text</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Noto+Sans:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand"><span class="brand-mark"></span>Bolo</div>
+
+    <button class="icon-btn" id="historyToggle" aria-label="Open history" aria-expanded="false">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <span class="badge" id="historyCount" hidden>0</span>
+    </button>
+</header>
+
+<main class="stage">
+
+    <div class="intro">
+        <h1>Say it. Keep it.</h1>
+        <p>Speak in Hindi, English, or both. Your words appear as you talk.</p>
+    </div>
+
+    <div class="tabs" role="tablist">
+        <button class="tab is-active" role="tab" aria-selected="true" data-tab="live">Live</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="upload">Audio file</button>
+    </div>
+
+    <!-- LIVE SECTION -->
+    <section id="paneLive">
+        <div class="recorder" id="recorder" data-state="idle">
+            <div class="meter" id="meter" aria-hidden="true"></div>
+
+            <div class="rec-info">
+                <span class="dot"></span>
+                <span id="recordingStatus">Ready to record</span>
+                <span class="timer" id="timer">00:00</span>
+            </div>
+
+            <div class="buttons">
+                <button class="btn-start" id="startButton">
+                    <span class="rec-dot"></span>Start
+                </button>
+                <button class="btn-stop" id="stopButton" disabled>
+                    <span class="stop-sq"></span>End
+                </button>
+            </div>
+        </div>
+
+        <div class="sheet">
+            <textarea id="liveTranscript" spellcheck="false"
+                placeholder="Press Start and begin speaking. Your words will land here."></textarea>
+            <div class="sheet-bar">
+                <span class="count" id="liveCount">0 words</span>
+                <div class="actions">
+                    <button class="ghost" id="copyLiveButton" disabled>Copy</button>
+                    <button class="ghost" id="clearLiveButton" disabled>Clear</button>
+                    <button class="primary" id="saveLiveButton" disabled>Save transcript</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UPLOAD SECTION -->
+    <section id="paneUpload" hidden>
+        <label class="dropzone" id="dropzone" for="audioFile">
+            <span class="drop-icon">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M6 10l6-6 6 6"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+            </span>
+            <strong id="dropTitle">Drop an audio file here</strong>
+            <span class="drop-sub" id="fileName">or click to browse. MP3, WAV, M4A, WebM or OGG, up to 15 MB.</span>
+            <input type="file" id="audioFile" accept=".mp3,.wav,.m4a,.webm,.ogg">
+        </label>
+
+        <div class="upload-row">
+            <button class="primary" id="uploadButton" disabled>Transcribe audio</button>
+            <span class="status" id="uploadStatus"></span>
+        </div>
+
+        <div class="sheet">
+            <textarea id="uploadTranscript" spellcheck="false"
+                placeholder="The transcription of your file will appear here."></textarea>
+            <div class="sheet-bar">
+                <span class="count" id="uploadCount">0 words</span>
+                <div class="actions">
+                    <button class="ghost" id="copyUploadButton" disabled>Copy</button>
+                    <button class="primary" id="saveUploadButton" disabled>Save transcript</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- HISTORY SECTION -->
+<div class="scrim" id="scrim"></div>
+
+<aside class="drawer" id="historyDrawer" aria-label="Saved transcripts">
+    <div class="drawer-head">
+        <h2>History</h2>
+        <div>
+            <button class="ghost" id="refreshButton">Refresh</button>
+            <button class="icon-btn small" id="closeHistory" aria-label="Close history">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+        </div>
+    </div>
+    <div class="drawer-body" id="historyContainer">Loading history...</div>
+</aside>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
