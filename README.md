@@ -2,8 +2,8 @@
 
 A full-stack web app that transcribes speech live as you talk, transcribes uploaded audio files, and stores a searchable history of transcripts. Built end to end by me: backend, real-time audio pipeline, database and UI.
 
-**Live demo:** add link or screen recording here
-**Source:** add repository link here
+**Live demo:** [Live link](https://realtime-speech-to-text-fyii.onrender.com)
+**Source:** [repository link](https://github.com/ali3825/realtime-speech-to-text)
 
 ### Bolo screenshot
 
